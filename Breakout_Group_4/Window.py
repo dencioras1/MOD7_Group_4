@@ -56,3 +56,6 @@ class Window:
         # Limiting framerate
 
         self.clock.tick(self.FRAMERATE)
+
+    def get_surface(self):
+        return self.screen

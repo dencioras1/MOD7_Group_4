@@ -11,6 +11,8 @@ def main():
 
     window.initialize_window()
 
+    board = Board(window.get_surface())
+
     # Main loop for the Breakout game
 
     while(True):
@@ -18,6 +20,8 @@ def main():
         window.check_exit_window()
 
         # Game logic goes here
+
+        board.render_frame()
 
         window.fill_background()
         window.update_canvas()
