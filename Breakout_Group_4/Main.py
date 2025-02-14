@@ -1,4 +1,5 @@
 import pygame
+from Board import Board
 
 def main():
 
@@ -15,6 +16,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
+    board = Board(screen)
 
     # Set name for game window
 
@@ -34,6 +36,8 @@ def main():
         screen.fill(BACKGROUND)
 
         # Game logic goes here
+
+        board.render_frame()
 
         # Updating game canvas/window
         pygame.display.flip()
