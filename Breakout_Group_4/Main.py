@@ -21,9 +21,11 @@ def main():
 
         # Game logic goes here
 
-        board.render_frame()
-
         window.fill_background()
+
+        board.render_frame()
+        board.render_bricks()
+        
         window.update_canvas()
 
 if __name__ == "__main__":
