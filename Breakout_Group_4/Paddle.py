@@ -22,3 +22,8 @@ class Paddle:
             self.x_loc -= self.dx
         if pressed_keys[self.keys[1]]: ##right movement
             self.x_loc += self.dx
+
+    def set_location(self):
+        locations = [self.x_loc, self.y_loc]
+        return locations
+
