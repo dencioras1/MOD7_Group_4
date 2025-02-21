@@ -1,9 +1,12 @@
 import pygame
 import Paddle
+from Board import Board
+from Window import Window
 
 def main():
 
-    # Constant variables
+    # Object for the game window
+    # Window(window_height, window_width, FPS, RGB)
 
     FRAMERATE = 120
     BACKGROUND = (0, 0, 0)
@@ -14,15 +17,17 @@ def main():
     PINK = (247, 202, 201)
     PADDLES = [Paddle.Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE), Paddle.Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
     # Code for game window settings
-
-
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
     clock = pygame.time.Clock()
 
     # Set name for game window
-
     pygame.display.set_caption('BREAKOUT - G4')
+    window = Window(1080, 720, 120, (0, 0, 0))
+
+    window.initialize_window()
+
+    board = Board(window.get_surface())
 
     # Main loop for the Breakout game
 
@@ -38,17 +43,19 @@ def main():
         screen.fill(BACKGROUND)
         keys = pygame.key.get_pressed()
 
+        window.check_exit_window()
 
         # Game logic goes here
         for paddle in PADDLES:
             paddle.update_paddle(keys)
             paddle.draw_paddle(screen)
 
-        # Updating game canvas/window
-        pygame.display.flip()
+        window.fill_background()
 
-        # Limiting framerate
-        clock.tick(FRAMERATE)
+        board.render_frame()
+        board.render_bricks()
+        
+        window.update_canvas()
 
 if __name__ == "__main__":
     main()
