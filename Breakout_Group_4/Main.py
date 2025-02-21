@@ -15,7 +15,8 @@ def main():
     SIZE = (WINDOW_WIDTH, WINDOW_HEIGHT)
     WHITE = (255, 255, 255)
     PINK = (247, 202, 201)
-    PADDLES = [Paddle.Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE), Paddle.Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
+    PADDLES = [Paddle.Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE),
+               Paddle.Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
     # Code for game window settings
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
@@ -46,14 +47,15 @@ def main():
         window.check_exit_window()
 
         # Game logic goes here
-        for paddle in PADDLES:
-            paddle.update_paddle(keys)
-            paddle.draw_paddle(screen)
+
 
         window.fill_background()
 
         board.render_frame()
         board.render_bricks()
+        for paddle in PADDLES:
+            paddle.update_paddle(keys)
+            paddle.draw_paddle(screen)
         
         window.update_canvas()
 
