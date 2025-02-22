@@ -57,12 +57,12 @@ def main():
 
         BOARD.render_frame()
         BOARD.render_bricks()
-        
+
         for paddle in PADDLES:
             paddle.update_paddle(keys)
             paddle.draw_paddle(SCREEN)
 
-        BALL.collision_paddle(PADDLES)
+        BALL.detect_colisions(PADDLES)
         BALL.update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
         BALL.draw_ball(SCREEN)
         

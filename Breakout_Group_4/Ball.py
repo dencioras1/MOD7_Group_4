@@ -18,13 +18,21 @@ class Ball:
     def draw_ball(self, screen):
         pygame.draw.circle(screen, self.colour, [self.x_loc, self.y_loc], Ball.radius)
 
-    def collision_paddle(self, paddles):
-        col_paddles = map(Paddle.get_rect, paddles)
-        col_rect = pygame.Rect(self.x_loc, self.y_loc, 10, 10)
-        collide = col_rect.collidelist(list(col_paddles))
+    def detect_colisions(self, objects):
+        col_objects = map(Paddle.get_rect, objects)
+        col_rects = pygame.Rect(self.x_loc, self.y_loc, 10, 10)
+        collide = col_rects.collidelist(list(col_objects))
         if collide != -1:
             # self.dx = -self.dx
             self.dy = -self.dy
+
+    # def collision_paddle(self, paddles):
+    #     col_paddles = map(Paddle.get_rect, paddles)
+    #     col_rect = pygame.Rect(self.x_loc, self.y_loc, 10, 10)
+    #     collide = col_rect.collidelist(list(col_paddles))
+    #     if collide != -1:
+    #         # self.dx = -self.dx
+    #         self.dy = -self.dy
 
     def init_movement(self):
         self.dx = random.uniform(-1, 1)
