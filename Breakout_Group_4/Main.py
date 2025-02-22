@@ -1,5 +1,6 @@
 import pygame
-import Paddle
+from Paddle import Paddle
+from Ball import Ball
 from Board import Board
 from Window import Window
 
@@ -15,8 +16,10 @@ def main():
     SIZE = (WINDOW_WIDTH, WINDOW_HEIGHT)
     WHITE = (255, 255, 255)
     PINK = (247, 202, 201)
-    PADDLES = [Paddle.Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE),
-               Paddle.Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
+    PADDLES = [Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE),
+               Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
+    BALL = Ball(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 0, 0, WHITE)
+
     # Code for game window settings
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
@@ -29,6 +32,7 @@ def main():
     window.initialize_window()
 
     board = Board(window.get_surface())
+    BALL.init_movement()
 
     # Main loop for the Breakout game
 
@@ -56,6 +60,10 @@ def main():
         for paddle in PADDLES:
             paddle.update_paddle(keys)
             paddle.draw_paddle(screen)
+
+        BALL.collision_paddle(PADDLES)
+        BALL.update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALL.draw_ball(screen)
         
         window.update_canvas()
 
