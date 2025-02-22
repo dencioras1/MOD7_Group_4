@@ -1,7 +1,7 @@
 import pygame
 import random
 from Paddle import Paddle
-
+from Brick import Brick
 
 class Ball:
     radius = 10
@@ -18,21 +18,20 @@ class Ball:
     def draw_ball(self, screen):
         pygame.draw.circle(screen, self.colour, [self.x_loc, self.y_loc], Ball.radius)
 
-    def detect_colisions(self, objects):
-        col_objects = map(Paddle.get_rect, objects)
-        col_rects = pygame.Rect(self.x_loc, self.y_loc, 10, 10)
-        collide = col_rects.collidelist(list(col_objects))
+    def collision_paddle(self, paddles):
+        col_paddles = map(Paddle.get_rect, paddles)
+        col_rect = pygame.Rect(self.x_loc, self.y_loc, 10, 10)
+        collide = col_rect.collidelist(list(col_paddles))
         if collide != -1:
             # self.dx = -self.dx
             self.dy = -self.dy
 
-    # def collision_paddle(self, paddles):
-    #     col_paddles = map(Paddle.get_rect, paddles)
-    #     col_rect = pygame.Rect(self.x_loc, self.y_loc, 10, 10)
-    #     collide = col_rect.collidelist(list(col_paddles))
-    #     if collide != -1:
-    #         # self.dx = -self.dx
-    #         self.dy = -self.dy
+    def collision_bricks(self, bricks):
+        for brick in bricks:
+            if pygame.Rect(self.x_loc, self.y_loc, 10, 10).colliderect(brick.get_rect()):
+                self.dy = -self.dy
+                return brick
+        return None
 
     def init_movement(self):
         self.dx = random.uniform(-1, 1)

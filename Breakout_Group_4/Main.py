@@ -62,7 +62,12 @@ def main():
             paddle.update_paddle(keys)
             paddle.draw_paddle(SCREEN)
 
-        BALL.detect_colisions(PADDLES)
+        BALL.collision_paddle(PADDLES)
+
+        hit_brick = BALL.collision_bricks(BOARD.get_bricks())
+        if hit_brick is not None:
+            BOARD.remove_brick(hit_brick)
+
         BALL.update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
         BALL.draw_ball(SCREEN)
         

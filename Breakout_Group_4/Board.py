@@ -19,7 +19,6 @@ class Board:
 
         for row in range(10):
             for column in range(16):
-                print("Brick number " + str(column) + ": " + str(100 + size.get_width() * column))
                 brick = Brick.Brick(self.surface, 20 + size.get_width() * column, 100 + size.get_height() * row, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
                 self.bricks[row].append(brick)
 
@@ -37,5 +36,13 @@ class Board:
         pygame.draw.rect(self.surface, self.frame_color, rect_top)
         pygame.draw.rect(self.surface, self.frame_color, rect_right)        
 
+    def remove_brick(self, brick_to_remove):
+        if brick_to_remove is None:
+            return
+        for row in self.bricks:
+            if brick_to_remove in row:
+                row.remove(brick_to_remove)
+                break
+
     def get_bricks(self):
-        return self.bricks
+        return [brick for row in self.bricks for brick in row]
