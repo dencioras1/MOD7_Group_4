@@ -22,16 +22,16 @@ def main():
 
     # Code for game window settings
     pygame.init()
-    screen = pygame.display.set_mode(SIZE)
-    clock = pygame.time.Clock()
+    SCREEN = pygame.display.set_mode(SIZE)
+    CLOCK = pygame.time.Clock()
 
     # Set name for game window
     pygame.display.set_caption('BREAKOUT - G4')
-    window = Window(1080, 720, 120, (0, 0, 0))
+    WINDOW = Window(1080, 720, 120, (0, 0, 0))
 
-    window.initialize_window()
+    WINDOW.initialize_window()
 
-    board = Board(window.get_surface())
+    BOARD = Board(WINDOW.get_surface())
     BALL.init_movement()
 
     # Main loop for the Breakout game
@@ -45,27 +45,28 @@ def main():
                 pygame.quit()
 
         # Fill screen with background color
-        screen.fill(BACKGROUND)
+        SCREEN.fill(BACKGROUND)
         keys = pygame.key.get_pressed()
 
-        window.check_exit_window()
+        WINDOW.check_exit_window()
 
         # Game logic goes here
 
 
-        window.fill_background()
+        WINDOW.fill_background()
 
-        board.render_frame()
-        board.render_bricks()
+        BOARD.render_frame()
+        BOARD.render_bricks()
+        
         for paddle in PADDLES:
             paddle.update_paddle(keys)
-            paddle.draw_paddle(screen)
+            paddle.draw_paddle(SCREEN)
 
         BALL.collision_paddle(PADDLES)
         BALL.update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
-        BALL.draw_ball(screen)
+        BALL.draw_ball(SCREEN)
         
-        window.update_canvas()
+        WINDOW.update_canvas()
 
 if __name__ == "__main__":
     main()
