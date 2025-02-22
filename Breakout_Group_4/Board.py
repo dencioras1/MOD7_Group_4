@@ -36,3 +36,6 @@ class Board:
         pygame.draw.rect(self.surface, self.frame_color, rect_left)
         pygame.draw.rect(self.surface, self.frame_color, rect_top)
         pygame.draw.rect(self.surface, self.frame_color, rect_right)        
+
+    def get_bricks(self):
+        return self.bricks
