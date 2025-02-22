@@ -2,7 +2,7 @@ import pygame
 
 class Paddle:
 
-    width = 40
+    width = 80
     height = 10
 
     def __init__(self, x_loc, y_loc , dx, keys, colour):
