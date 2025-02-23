@@ -6,8 +6,7 @@ from Window import Window
 
 def main():
 
-    # Object for the game window
-    # Window(window_height, window_width, FPS, RGB)
+    BALL_SPEED = 3
 
     FRAMERATE = 120
     BACKGROUND = (0, 0, 0)
@@ -18,7 +17,7 @@ def main():
     PINK = (247, 202, 201)
     PADDLES = [Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE),
                Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
-    BALL = Ball(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 10, 0, 0, WHITE)
+    BALL = Ball(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 10, BALL_SPEED, WHITE)
 
     # Code for game window settings
     pygame.init()
@@ -32,7 +31,6 @@ def main():
     WINDOW.initialize_window()
 
     BOARD = Board(WINDOW.get_surface())
-    BALL.init_movement()
 
     # Main loop for the Breakout game
 

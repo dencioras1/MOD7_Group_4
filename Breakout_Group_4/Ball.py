@@ -14,13 +14,22 @@ class Ball:
     dy = 0
     colour = (0, 0, 0)
     collider = None
+    speed = 0
 
-    def __init__(self, x_loc, y_loc, radius, dx, dy, colour):
+    def __init__(self, x_loc, y_loc, radius, speed, colour):
         self.x_loc = x_loc
         self.y_loc = y_loc
+        self.speed = speed
+
+        # Variables dealing with direction
+        self.dx = random.uniform(-1, 1)
+        self.dy = random.uniform(-1, 1)
+        # Normalizing the two variables so that their sum is equal to 1
+        length = math.sqrt(self.dx**2 + self.dy**2)
+        self.dx /= length
+        self.dy /= length
+
         self.radius = radius
-        self.dx = dx
-        self.dy = dy
         self.colour = colour
         self.collider = pygame.Rect(self.x_loc - self.radius, self.y_loc - self.radius, self.radius * 2, self.radius * 2)
 
@@ -62,10 +71,6 @@ class Ball:
                 
                 return brick
 
-    def init_movement(self):
-        self.dx = random.uniform(-2, 2)
-        self.dy = random.uniform(0, 2)
-
     def update_ball(self, width, height):
         # Change x axis movement, depending on which side the ball touches
         if self.x_loc < 30:
@@ -83,5 +88,5 @@ class Ball:
         #possibility for accelleration to make it more difficult!
         # self.dx *= self.acc
         # self.dy *= self.acc
-        self.x_loc += self.dx
-        self.y_loc += self.dy
+        self.x_loc += self.dx * self.speed
+        self.y_loc += self.dy * self.speed
