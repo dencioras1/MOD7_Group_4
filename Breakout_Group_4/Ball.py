@@ -37,17 +37,20 @@ class Ball:
         pygame.draw.circle(screen, self.colour, [self.x_loc, self.y_loc], self.radius)
 
     def collision_paddle(self, paddles):
+        # Update the ball collider location 
+        self.update_collider()
+        
         col_paddles = map(Paddle.get_rect, paddles)
-        col_rect = pygame.Rect(self.x_loc, self.y_loc, 10, 10)
-        collide = col_rect.collidelist(list(col_paddles))
+        collide = self.collider.collidelist(list(col_paddles))
+
         if collide != -1:
             # self.dx = -self.dx
             self.dy = -self.dy
 
     def collision_bricks(self, bricks):
         # Update the ball collider location 
-        self.collider = pygame.Rect(self.x_loc - self.radius, self.y_loc - self.radius, self.radius * 2, self.radius * 2)
-        
+        self.update_collider()        
+
         for brick in bricks:
             brick_rect = brick.get_rect()
             if self.collider.colliderect(brick_rect):
@@ -90,3 +93,6 @@ class Ball:
         # self.dy *= self.acc
         self.x_loc += self.dx * self.speed
         self.y_loc += self.dy * self.speed
+
+    def update_collider(self):
+        self.collider = pygame.Rect(self.x_loc - self.radius, self.y_loc - self.radius, self.radius * 2, self.radius * 2)
