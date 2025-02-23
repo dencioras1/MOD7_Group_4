@@ -6,7 +6,7 @@ from Window import Window
 
 def main():
 
-    BALL_SPEED = 3
+    BALL_SPEED = 2
 
     FRAMERATE = 120
     BACKGROUND = (0, 0, 0)
@@ -17,7 +17,7 @@ def main():
     PINK = (247, 202, 201)
     PADDLES = [Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE),
                Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
-    BALL = Ball(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, 10, BALL_SPEED, WHITE)
+    BALL = Ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE)
 
     # Code for game window settings
     pygame.init()

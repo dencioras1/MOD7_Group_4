@@ -2,7 +2,7 @@ import pygame
 
 class Paddle:
 
-    width = 80
+    width = 91
     height = 10
 
     def __init__(self, x_loc, y_loc , dx, keys, colour):
@@ -30,6 +30,12 @@ class Paddle:
         locations = [self.x_loc, self.y_loc]
         return locations
 
+    def get_x(self):
+        return self.x_loc
+    
+    def get_width(self):
+        return self.width
+    
     def get_rect(self):
         return self.col_rect
 
