@@ -39,6 +39,8 @@ class Window:
     # Method for updating the game window
     def update_canvas(self):
         pygame.display.flip()
+        # Set framerate
+        pygame.time.Clock().tick(120)
 
     # Getter for the surface
     def get_surface(self):
