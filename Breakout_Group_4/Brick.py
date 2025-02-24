@@ -1,5 +1,6 @@
 import pygame
 
+
 class Brick:
 
     # Brick class attributes
@@ -34,6 +35,8 @@ class Brick:
     def draw_brick(self, surface):
         rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(surface, self.color, rect)
+        pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(self.x+3, self.y+2, self.width-8, self.height/6))
+        pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(self.x+3, self.y+2, 3, 8))
 
     # Getter for the width of the brick
     def get_width(self):

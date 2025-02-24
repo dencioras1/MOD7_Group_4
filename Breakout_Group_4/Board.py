@@ -2,10 +2,10 @@ import pygame
 import Brick
 import random
 
+
 class Board:
 
     # Board class attributes
-
     bricks = [[] for _ in range(10)]
     padding = 10
     frame_color = (255, 105, 180)
@@ -21,7 +21,7 @@ class Board:
 
         # For each row (10 in total)
         for row in range(10):
-            # For eache collumn (16 in total)
+            # For each column (16 in total)
             for column in range(16):
                 # Create new brick with randomized RGB values and add it to the 2D array of bricks
                 brick = Brick.Brick(20 + size.get_width() * column, 100 + size.get_height() * row, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
@@ -50,7 +50,7 @@ class Board:
 
     # Method for removing a brick
     def remove_brick(self, brick_to_remove):
-        # Go throug each 2D array row
+        # Go through each 2D array row
         for row in self.bricks:
             # If the brick_to_remove is in the row, remove it
             if brick_to_remove in row:

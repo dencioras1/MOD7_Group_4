@@ -49,6 +49,7 @@ class Ball:
     # Method for drawing the ball
     def draw_ball(self, surface):
         pygame.draw.circle(surface, self.colour, [self.x, self.y], self.radius)
+        pygame.draw.circle(surface, (255, 255, 255), [self.x-5, self.y-4], self.radius/4)
 
     # Method for handling collisions with the paddles
     def collision_paddle(self, paddles):
@@ -140,9 +141,8 @@ class Ball:
             # Lose situation
             self.state = 2
 
-
         # Multiply speed by accelaration constant (ball speed increases over time)
-        if (self.speed <= 25):
+        if (self.speed <= 25) and self.state == 1:
             self.speed *= self.accelaration
             self.speed *= self.accelaration
 

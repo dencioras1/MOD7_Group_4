@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ac9df6d-a47d-4050-938a-c5a386c6d7b9" name="Changes" comment="Added ball class basics">
+    <list default="true" id="1ac9df6d-a47d-4050-938a-c5a386c6d7b9" name="Changes" comment="Added ball reset and SPACE to start game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Breakout_Group_4/Ball.py" beforeDir="false" afterPath="$PROJECT_DIR$/Breakout_Group_4/Ball.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Breakout_Group_4/Board.py" beforeDir="false" afterPath="$PROJECT_DIR$/Breakout_Group_4/Board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Breakout_Group_4/Brick.py" beforeDir="false" afterPath="$PROJECT_DIR$/Breakout_Group_4/Brick.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Breakout_Group_4/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Breakout_Group_4/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Breakout_Group_4/Paddle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Breakout_Group_4/Paddle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1740162114006</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added ball reset and SPACE to start game">
+      <created>1740419024430</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1740419024430</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -120,6 +129,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added ball class basics" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ball class basics" />
+    <MESSAGE value="Added ball reset and SPACE to start game" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ball reset and SPACE to start game" />
   </component>
 </project>

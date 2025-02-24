@@ -4,14 +4,15 @@ from Ball import Ball
 from Board import Board
 from Window import Window
 
+
 def make_balls(window_width, window_height, ball_speed, colour):
     BALLS = [Ball(window_width / 3, window_height / 2, 10, ball_speed, colour),
              Ball(window_width / 2, window_height / 2, 10, ball_speed, colour),
              Ball(window_width / 3 * 2, window_height / 2, 10, ball_speed, colour)]
     return BALLS
 
-def main():
 
+def main():
     # Initialize pygame
     pygame.init()
 
@@ -25,13 +26,14 @@ def main():
     PADDLE_RED = (247, 74, 74)
     PADDLE_BLUE = (74, 129, 247)
     WHITE = (255, 255, 255)
+    BALL_COLOUR = (203,115,110)
     
     # Array for paddle objects
     PADDLES = [Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], PADDLE_RED),
                Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PADDLE_BLUE)]
     
     # Array for balls
-    BALLS = make_balls(WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, WHITE)
+    BALLS = make_balls(WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, BALL_COLOUR)
 
     # Variables related to the game window
     WINDOW = Window(1080, 720, (0, 0, 0))
@@ -39,33 +41,11 @@ def main():
     # Board variable
     BOARD = Board()
 
-
     # Initialize font for displaying the score / speed
     pygame.font.init()
     FONT = pygame.font.SysFont("consolas", 24)
     
-    def game_logic(score, BALLS):
-        # Gets keys that are pressed
-        keys = pygame.key.get_pressed()
-        
-        # Move paddles based on the keys being pressed
-        for paddle in PADDLES:
-            paddle.move_paddle(keys)
-
-        # Check if the game window is closed
-        WINDOW.check_exit_window()
-
-        if keys[pygame.K_SPACE]:
-            for ball in BALLS:
-                ball.initialize_balls()
-
-        i = 0
-        for b in BALLS:
-            if b.get_state() == 2:
-                i += 1
-        if i == 3:
-            BALLS = make_balls(WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, WHITE)
-        
+    def score_logic(score):
         # Check for collisions between the balls and the paddles
         BALLS[0].collision_paddle(PADDLES)
         BALLS[1].collision_paddle(PADDLES)
@@ -125,8 +105,30 @@ def main():
     while(True):
         # Check if the game window is closed
         WINDOW.check_exit_window()
-        
-        score = game_logic(score, BALLS)
+
+        # Gets keys that are pressed
+        keys = pygame.key.get_pressed()
+
+        # Move paddles based on the keys being pressed
+        for paddle in PADDLES:
+            paddle.move_paddle(keys)
+
+        # Check if the game window is closed
+        WINDOW.check_exit_window()
+
+        if keys[pygame.K_SPACE]:
+            for ball in BALLS:
+                ball.initialize_balls()
+
+        i = 0
+        for b in BALLS:
+            if b.get_state() == 2:
+                i += 1
+        if i == 3:
+            BALLS.clear()
+            BALLS = make_balls(WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, BALL_COLOUR)
+
+        score = score_logic(score)
 
         draw_everything(score)
 

@@ -1,7 +1,7 @@
 import pygame
 
-class Paddle:
 
+class Paddle:
     # Paddle class attributes
     x = 0
     y = 0
@@ -35,6 +35,7 @@ class Paddle:
     # Method for drawing paddle
     def draw_paddle(self, surface):
         pygame.draw.rect(surface, self.colour, self.collider)
+        pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(self.x, self.y, self.width, self.height/4))
 
     # Method for handling movement of the paddle
     def move_paddle(self, pressed_keys):
