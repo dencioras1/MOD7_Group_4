@@ -2,6 +2,7 @@ import pygame
 
 class Paddle:
 
+    # Paddle class attributes
     x = 0
     y = 0
     width = 91
@@ -9,39 +10,53 @@ class Paddle:
     dx = 0
     keys = None
     colour = 0
-    col_rect = None
+    collider = None
 
+    # Constructor
     def __init__(self, x, y , dx, keys, colour):
+        # Location
         self.x = x
         self.y = y
+
+        # Size
         self.width = Paddle.width
         self.height = Paddle.height
+
+        # Movement direction
         self.dx = dx
+
+        # Keys for controlling paddle 
         self.keys = keys
+
+        # Color and collider
         self.colour = colour
-        self.col_rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.collider = pygame.Rect(self.x, self.y, self.width, self.height)
 
+    # Method for drawing paddle
     def draw_paddle(self, screen):
-        pygame.draw.rect(screen, self.colour, self.col_rect)
+        pygame.draw.rect(screen, self.colour, self.collider)
 
-    def update_paddle(self, pressed_keys):
-        if pressed_keys[self.keys[0]] and self.x > 20: ##left movement
+    # Method for handling movement of the paddle
+    def move_paddle(self, pressed_keys):
+        # Left
+        if pressed_keys[self.keys[0]] and self.x > 20:
             self.x -= self.dx
-        if pressed_keys[self.keys[1]] and self.x < 1060 - self.width: ##right movement
+        # Right
+        if pressed_keys[self.keys[1]] and self.x < 1060 - self.width:
             self.x += self.dx
 
-        self.col_rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        # Update collider location
+        self.collider = pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def set_location(self):
-        locations = [self.x, self.y]
-        return locations
-
+    # Getter for x value
     def get_x(self):
         return self.x
     
+    # Getter for width
     def get_width(self):
         return self.width
     
+    # Getter for collider
     def get_collider(self):
-        return self.col_rect
+        return self.collider
 

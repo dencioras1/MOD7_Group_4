@@ -19,15 +19,15 @@ class Ball:
 
     # Constructor
     def __init__(self, x, y, radius, speed, colour):
-        # Location variables
+        # Location 
         self.x = x
         self.y = y
 
-        # Speed / accelaration variables
+        # Speed / accelaration 
         self.speed = speed
         self.accelaration = 1.0001
 
-        # Direction variables
+        # Movement direction 
         self.dx = random.uniform(-1, 1)
         self.dy = random.uniform(-1, 1)
 
@@ -121,7 +121,7 @@ class Ball:
                 return brick
 
     # Method for handling ball movement/acceleration
-    def update_ball(self, width, height):
+    def move_ball(self, width, height):
         # Bounce off of frame (x axis)
         if self.x < 30:
             self.dx = -self.dx

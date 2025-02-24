@@ -66,7 +66,7 @@ def main():
         BOARD.render_bricks()
 
         for paddle in PADDLES:
-            paddle.update_paddle(keys)
+            paddle.move_paddle(keys)
             paddle.draw_paddle(SCREEN)
 
         BALLS[0].collision_paddle(PADDLES)
@@ -87,9 +87,9 @@ def main():
             BOARD.remove_brick(hit_brick_3)
             score += 1
 
-        BALLS[0].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
-        BALLS[1].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
-        BALLS[2].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALLS[0].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALLS[1].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALLS[2].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         BALLS[0].draw_ball(SCREEN)
         BALLS[1].draw_ball(SCREEN)
