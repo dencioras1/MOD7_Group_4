@@ -44,5 +44,8 @@ class Board:
                 row.remove(brick_to_remove)
                 break
 
+        if len(self.get_bricks()) == 0:
+            self.initialize_bricks()
+
     def get_bricks(self):
         return [brick for row in self.bricks for brick in row]

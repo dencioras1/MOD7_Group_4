@@ -9,12 +9,12 @@ class Ball:
     radius = 0
     x_loc = 0
     y_loc = 0
-    radius = 0
     dx = 0
     dy = 0
     colour = (0, 0, 0)
     collider = None
     speed = 0
+    state = 0
 
     def __init__(self, x_loc, y_loc, radius, speed, colour):
 
@@ -22,15 +22,18 @@ class Ball:
         self.y_loc = y_loc
         self.speed = speed
         self.acc = 1.0001
+        self.state = Ball.state
 
         # Variables dealing with direction
-        self.dx = random.uniform(-1, 1)
-        self.dy = random.uniform(-1, 1)
+        self.dx = Ball.dx
+        self.dy = Ball.dy
+
 
         # Normalizing the two variables so that their sum is equal to 1
-        length = math.sqrt(self.dx**2 + self.dy**2)
-        self.dx /= length
-        self.dy /= length
+        if self.state == 1:
+            length = math.sqrt(self.dx**2 + self.dy**2)
+            self.dx /= length
+            self.dy /= length
 
         self.radius = radius
         self.colour = colour
@@ -123,7 +126,8 @@ class Ball:
             self.dy = -self.dy
         if self.y_loc > height:
             # Lose situation
-            pass
+            self.state = 2
+
 
         # possibility for acceleration to make it more difficult!
         self.speed *= self.acc
@@ -139,10 +143,23 @@ class Ball:
     def update_direction(self, dx, dy):
         self.dx = dx
         self.dy = dy
-        # Normalizing the two variables so that their sum is equal to 1
-        length = math.sqrt(self.dx**2 + self.dy**2)
-        self.dx /= length
-        self.dy /= length
+
+        if self.state == 1:
+            # Normalizing the two variables so that their sum is equal to 1
+            length = math.sqrt(self.dx**2 + self.dy**2)
+            self.dx /= length
+            self.dy /= length
+        else:
+            pass
 
     def get_speed(self):
         return self.speed
+
+    def get_state(self):
+        return self.state
+
+    def initialize_balls(self):
+        if self.state == 0:
+            self.dx = random.uniform(-1, 1)
+            self.dy = random.uniform(-1, 1)
+            self.state = 1
