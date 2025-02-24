@@ -10,15 +10,12 @@ def main():
     pygame.init()
 
     # Variables that should not be adjusted
-    FRAMERATE = 120
     WINDOW_WIDTH = 1080
     WINDOW_HEIGHT = 720
-    SURFACE = None
     score = 0
 
     # Variables that can be adjusted
     BALL_SPEED = 1
-    BACKGROUND = (0, 0, 0)
     PADDLE_RED = (247, 74, 74)
     PADDLE_BLUE = (74, 129, 247)
     WHITE = (255, 255, 255)
@@ -42,7 +39,43 @@ def main():
     pygame.font.init()
     FONT = pygame.font.SysFont("consolas", 24)
     
-    def draw_everything():
+    def game_logic(score):
+        # Gets keys that are pressed
+        keys = pygame.key.get_pressed()
+        
+        # Move paddles based on the keys being pressed
+        for paddle in PADDLES:
+            paddle.move_paddle(keys)
+        
+        # Check for collisions between the balls and the paddles
+        BALLS[0].collision_paddle(PADDLES)
+        BALLS[1].collision_paddle(PADDLES)
+        BALLS[2].collision_paddle(PADDLES)
+
+        # Bricks hit for each ball
+        hit_brick_1 = BALLS[0].collision_bricks(BOARD.get_bricks())
+        hit_brick_2 = BALLS[1].collision_bricks(BOARD.get_bricks())
+        hit_brick_3 = BALLS[2].collision_bricks(BOARD.get_bricks())
+
+        # Move ball (parameters indicate borders)
+        BALLS[0].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALLS[1].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALLS[2].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+
+        # If there is a brick hit...
+        if hit_brick_1 is not None:
+            # Remove it and increment the counter
+            BOARD.remove_brick(hit_brick_1)
+            score += 1
+        if hit_brick_2 is not None:
+            BOARD.remove_brick(hit_brick_2)
+            score += 1
+        if hit_brick_3 is not None:
+            BOARD.remove_brick(hit_brick_3)
+            score += 1
+        return score
+
+    def draw_everything(score):
         WINDOW.fill_background()
 
         BOARD.draw_frame(WINDOW.get_surface())
@@ -68,36 +101,9 @@ def main():
         # Check if the game window is closed
         WINDOW.check_exit_window()
         
-        # Gets keys that are pressed
-        keys = pygame.key.get_pressed()
-        
-        for paddle in PADDLES:
-            paddle.move_paddle(keys)
-            
-        
-        BALLS[0].collision_paddle(PADDLES)
-        BALLS[1].collision_paddle(PADDLES)
-        BALLS[2].collision_paddle(PADDLES)
+        score = game_logic(score)
 
-        hit_brick_1 = BALLS[0].collision_bricks(BOARD.get_bricks())
-        hit_brick_2 = BALLS[1].collision_bricks(BOARD.get_bricks())
-        hit_brick_3 = BALLS[2].collision_bricks(BOARD.get_bricks())
-
-        BALLS[0].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
-        BALLS[1].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
-        BALLS[2].move_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
-
-        if hit_brick_1 is not None:
-            BOARD.remove_brick(hit_brick_1)
-            score += 1
-        if hit_brick_2 is not None:
-            BOARD.remove_brick(hit_brick_2)
-            score += 1
-        if hit_brick_3 is not None:
-            BOARD.remove_brick(hit_brick_3)
-            score += 1
-
-        draw_everything()
+        draw_everything(score)
 
 if __name__ == "__main__":
     main()
