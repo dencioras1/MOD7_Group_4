@@ -4,19 +4,5 @@ Kaya:
 3. Make sure game stops after balls are gone							(BEFORE TMRW)
 4. New set of bricks when all of them are gone.							(BEFORE TMRW)
 
-Denas:
-
-Both:                                                                   (BEFORE TMRW)
-1. Comment code                                                         
-2. Consistency of code style:
-	Naming of variables 
-	Naming of methods
-	Indentation
-	Empty lines after comments
-	Parentheses after method calls
-	ETC...
-3. Constructors and attributes
-	Make sure variable are declared outside the constructors and initialized in the constructor
-4. Remove unused parameters and variables
 
 
