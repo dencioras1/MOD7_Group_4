@@ -33,5 +33,5 @@ class Brick:
     def get_height(self):
         return self.height
     
-    def get_rect(self):
+    def get_collider(self):
         return pygame.Rect(self.position_x, self.position_y, self.width, self.height)

@@ -36,6 +36,6 @@ class Paddle:
     def get_width(self):
         return self.width
     
-    def get_rect(self):
+    def get_collider(self):
         return self.col_rect
 

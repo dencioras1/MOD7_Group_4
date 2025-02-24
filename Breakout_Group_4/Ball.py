@@ -6,24 +6,28 @@ from Brick import Brick
 
 class Ball:
 
-    radius = 0
-    x_loc = 0
-    y_loc = 0
+    # Ball class attributes
+    x = 0
+    y = 0
+    speed = 0
+    accelaration = 0
     radius = 0
     dx = 0
     dy = 0
     colour = (0, 0, 0)
     collider = None
-    speed = 0
 
-    def __init__(self, x_loc, y_loc, radius, speed, colour):
+    # Constructor
+    def __init__(self, x, y, radius, speed, colour):
+        # Location variables
+        self.x = x
+        self.y = y
 
-        self.x_loc = x_loc
-        self.y_loc = y_loc
+        # Speed / accelaration variables
         self.speed = speed
-        self.acc = 1.0001
+        self.accelaration = 1.0001
 
-        # Variables dealing with direction
+        # Direction variables
         self.dx = random.uniform(-1, 1)
         self.dy = random.uniform(-1, 1)
 
@@ -32,117 +36,128 @@ class Ball:
         self.dx /= length
         self.dy /= length
 
+        # Ball size, color and collider
         self.radius = radius
         self.colour = colour
-        self.collider = pygame.Rect(self.x_loc - self.radius, self.y_loc - self.radius, self.radius * 2, self.radius * 2)
+        self.collider = pygame.Rect(self.x - self.radius, self.y - self.radius, self.radius * 2, self.radius * 2)
 
+    # Method for drawing the ball
     def draw_ball(self, screen):
+        pygame.draw.circle(screen, self.colour, [self.x, self.y], self.radius)
 
-        pygame.draw.circle(screen, self.colour, [self.x_loc, self.y_loc], self.radius)
-
+    # Method for handling collisions with the paddles
     def collision_paddle(self, paddles):
-
-        # Update the ball collider location 
         self.update_collider()
 
-        col_paddles = map(Paddle.get_rect, paddles)
-        collide = self.collider.collidelist(list(col_paddles))
+        # Get paddle colliders
+        paddle_colliders = map(Paddle.get_colliders(), paddles)
 
-        if collide != -1:
-            # self.dx = -self.dx
-            self.adjust_direction(paddles[collide])
-            self.dy = -self.dy
+        # check which paddles have been collided with
+        collided = self.collider.collidelist(list(paddle_colliders))
 
+        # If there is a collision...
+        if collided != -1:
+            self.adjust_direction(paddles[collided])
+
+    # Method for adjust the direction of the ball, based on where it bounces off of a paddle
+    # Each paddle is divided into 7 segments
+    # 1st segment - 45 degrees left
+    # 7th segment - 45 degrees right
+    # Increments of 15 degrees
     def adjust_direction(self, paddle):
         increment = paddle.get_width() / 7
         # First paddle segment
-        if(paddle.get_x() <= self.x_loc and self.x_loc <= paddle.get_x() + increment):
-            self.update_direction(-1, 1)
+        if(paddle.get_x() <= self.x and self.x <= paddle.get_x() + increment):
+            self.update_direction(-1, -1)
         # Second paddle segment
-        elif(paddle.get_x() + increment < self.x_loc and self.x_loc <= paddle.get_x() + 2 * increment):
-            self.update_direction(-2, 3)
+        elif(paddle.get_x() + increment < self.x and self.x <= paddle.get_x() + 2 * increment):
+            self.update_direction(-2, -3)
         # Third paddle segment
-        elif(paddle.get_x() + 2 * increment < self.x_loc and self.x_loc <= paddle.get_x() + 3 * increment):
-            self.update_direction(-1, 3)
+        elif(paddle.get_x() + 2 * increment < self.x and self.x <= paddle.get_x() + 3 * increment):
+            self.update_direction(-1, -3)
         # Forth (middle) paddle segment
-        elif(paddle.get_x() + 3 * increment < self.x_loc and self.x_loc <= paddle.get_x() + 4 * increment):
-            self.update_direction(0, 1)
+        elif(paddle.get_x() + 3 * increment < self.x and self.x <= paddle.get_x() + 4 * increment):
+            self.update_direction(0, -1)
         # Fifth paddle segment
-        elif(paddle.get_x() + 4 * increment < self.x_loc and self.x_loc <= paddle.get_x() + 5 * increment):
-            self.update_direction(1, 3)
+        elif(paddle.get_x() + 4 * increment < self.x and self.x <= paddle.get_x() + 5 * increment):
+            self.update_direction(1, -3)
         # Sixth paddle segment
-        elif(paddle.get_x() + 5 * increment < self.x_loc and self.x_loc <= paddle.get_x() + 6 * increment):
-            self.update_direction(2, 3)
+        elif(paddle.get_x() + 5 * increment < self.x and self.x <= paddle.get_x() + 6 * increment):
+            self.update_direction(2, -3)
         # Seventh paddle segment
-        elif(paddle.get_x() + 6 * increment < self.x_loc and self.x_loc <= paddle.get_x() + 7 * increment):
-            self.update_direction(1, 1)
+        elif(paddle.get_x() + 6 * increment < self.x and self.x <= paddle.get_x() + 7 * increment):
+            self.update_direction(1, -1)
         else:
             pass
 
-
+    # Method for handling collisions with bricks
     def collision_bricks(self, bricks):
-
-        # Update the ball collider location 
         self.update_collider()        
 
         for brick in bricks:
-            brick_rect = brick.get_rect()
-            if self.collider.colliderect(brick_rect):
+            brick_collider = brick.get_colliders()
+            # If ball collides with a brick...
+            if self.collider.colliderect(brick_collider):
                 # Calculate overlap
-                overlap = self.collider.clip(brick_rect)
-                
+                overlap = self.collider.clip(brick_collider)
                 if overlap.width < overlap.height:
                     # Left or right collision
                     self.dx = -self.dx
-
-                    if self.x_loc < brick_rect.centerx:
-                        self.x_loc = brick_rect.left - self.radius
+                    if self.x < brick_collider.centerx:
+                        # Adjust ball position to match left side of brick
+                        self.x = brick_collider.left - self.radius
                     else:
-                        self.x_loc = brick_rect.right + self.radius
+                        # Adjust ball position to match right side of brick
+                        self.x = brick_collider.right + self.radius
                 else:
                     # Top or bottom collision
                     self.dy = -self.dy
-
-                    if self.y_loc < brick_rect.centery:
-                        self.y_loc = brick_rect.top - self.radius
+                    if self.y < brick_collider.centery:
+                        # Adjust ball position to match top side of brick
+                        self.y = brick_collider.top - self.radius
                     else:
-                        self.y_loc = brick_rect.bottom + self.radius
-                
+                        # Adjust ball position to match bottom side of brick
+                        self.y = brick_collider.bottom + self.radius
                 return brick
 
+    # Method for handling ball movement/acceleration
     def update_ball(self, width, height):
-
-        # Change x axis movement, depending on which side the ball touches
-        if self.x_loc < 30:
+        # Bounce off of frame (x axis)
+        if self.x < 30:
             self.dx = -self.dx
-        if self.x_loc > width - 30:
+        if self.x > width - 30:
             self.dx = -self.dx
 
-        # Same idea except for the y axis, if the ball's y position is higher than 
-        if self.y_loc < 30:
+        # Bounce off of top of frame
+        if self.y < 30:
             self.dy = -self.dy
-        if self.y_loc > height:
-            # Lose situation
+        if self.y > height:
+            # Delete ball (handled in Main.py)
             pass
 
-        # possibility for acceleration to make it more difficult!
-        self.speed *= self.acc
-        self.speed *= self.acc
+        # Multiply speed by accelaration constant (ball speed increases over time)
+        self.speed *= self.accelaration
+        self.speed *= self.accelaration
 
-        self.x_loc += self.dx * self.speed
-        self.y_loc += self.dy * self.speed
+        # Update ball location
+        self.x += self.dx * self.speed
+        self.y += self.dy * self.speed
 
+    # Method for updating collider location
     def update_collider(self):
+        self.collider = pygame.Rect(self.x - self.radius, self.y - self.radius, self.radius * 2, self.radius * 2)
 
-        self.collider = pygame.Rect(self.x_loc - self.radius, self.y_loc - self.radius, self.radius * 2, self.radius * 2)
-
+    # Method for changing/normalizing the direction variables
     def update_direction(self, dx, dy):
+        # Assign new values
         self.dx = dx
         self.dy = dy
-        # Normalizing the two variables so that their sum is equal to 1
+
+        # Normalization (sum is equal to 1)
         length = math.sqrt(self.dx**2 + self.dy**2)
         self.dx /= length
         self.dy /= length
 
+    # Getter for ball speed
     def get_speed(self):
         return self.speed
