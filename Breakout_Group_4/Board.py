@@ -56,7 +56,10 @@ class Board:
             if brick_to_remove in row:
                 row.remove(brick_to_remove)
                 break
-    
-    # Getter for the 2D array of bricks
+
+        if len(self.get_bricks()) == 0:
+            self.initialize_bricks()
+
+    # Getter for bricks
     def get_bricks(self):
         return [brick for row in self.bricks for brick in row]

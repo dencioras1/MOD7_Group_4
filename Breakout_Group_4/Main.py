@@ -4,6 +4,12 @@ from Ball import Ball
 from Board import Board
 from Window import Window
 
+def make_balls(window_width, window_height, ball_speed, colour):
+    BALLS = [Ball(window_width / 3, window_height / 2, 10, ball_speed, colour),
+             Ball(window_width / 2, window_height / 2, 10, ball_speed, colour),
+             Ball(window_width / 3 * 2, window_height / 2, 10, ball_speed, colour)]
+    return BALLS
+
 def main():
 
     # Initialize pygame
@@ -25,15 +31,14 @@ def main():
                Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PADDLE_BLUE)]
     
     # Array for balls
-    BALLS = [Ball(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE),
-             Ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE),
-             Ball(WINDOW_WIDTH / 3 * 2, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE)]
+    BALLS = make_balls(WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, WHITE)
 
     # Variables related to the game window
     WINDOW = Window(1080, 720, (0, 0, 0))
 
     # Board variable
     BOARD = Board()
+
 
     # Initialize font for displaying the score / speed
     pygame.font.init()
@@ -46,6 +51,20 @@ def main():
         # Move paddles based on the keys being pressed
         for paddle in PADDLES:
             paddle.move_paddle(keys)
+
+        # Check if the game window is closed
+        WINDOW.check_exit_window()
+
+        if keys[pygame.K_SPACE]:
+            for ball in BALLS:
+                ball.initialize_balls()
+
+        i = 0
+        for b in BALLS:
+            if b.get_state() == 2:
+                i += 1
+        if i == 3:
+            BALLS = make_balls(WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, WHITE)
         
         # Check for collisions between the balls and the paddles
         BALLS[0].collision_paddle(PADDLES)
@@ -93,6 +112,12 @@ def main():
         WINDOW.get_surface().blit(score_surface, (30, 30))
         WINDOW.get_surface().blit(speed_surface, (30, 50))
 
+        enter_message = FONT.render("Press SPACE to start the game :)", True, WHITE)
+
+        WINDOW.get_surface().blit(score_surface, (30, 30))
+        WINDOW.get_surface().blit(speed_surface, (30, 50))
+        WINDOW.get_surface().blit(enter_message, (WINDOW_WIDTH/2-200, 690))
+
         WINDOW.update_canvas()
 
     # Main loop for the Breakout game ----------------------------------------------------------------------------------------------
@@ -107,3 +132,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
