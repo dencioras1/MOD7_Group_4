@@ -1,0 +1,31 @@
+
+
+2. Have the ball start at the paddle
+
+
+
+5. Remove unused parameters and variables
+
+6. Pimp out the gameplay
+	Player 1 (bottom) vs Player 2 (top) each one with their own ball
+	Press something to start the game, or maybe timer
+	Win / Lose text
+	Ball speeds up over time
+	Add element that you need to pick up to win
+	3 tries before you lose
+Kaya:
+1. Aesthetics (in italic)
+
+Denas:
+
+Both:
+1. Comment code
+2. Consistency of code style:
+	Naming of variables 
+	Naming of methods
+	Indentation
+	Empty lines after comments
+	Parentheses after method calls
+	ETC...
+3. Constructors and attributes
+	Make sure variable are declared outside the constructors and initialized in the constructor
