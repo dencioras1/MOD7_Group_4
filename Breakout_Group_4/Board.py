@@ -7,14 +7,11 @@ class Board:
     # Board class attributes
 
     bricks = [[] for _ in range(10)]
-    surface = None
     padding = 10
     frame_color = (255, 105, 180)
 
     # Constructor
-    def __init__(self, surface):
-        # Surface of board
-        self.surface = surface
+    def __init__(self):
         self.initialize_bricks()
 
     # Method for generating the bricks
@@ -31,25 +28,25 @@ class Board:
                 self.bricks[row].append(brick)
 
     # Method for drawing the bricks
-    def draw_bricks(self):
+    def draw_bricks(self, surface):
         # For each row of bricks in the 2D array...
         for brick_row in self.bricks:
             # For each brick in the brick row...
             for brick in brick_row:
                 # Draw the brick
-                brick.draw_brick(self.surface)
+                brick.draw_brick(surface)
 
     # Method for drawing the board frame
-    def draw_frame(self):
+    def draw_frame(self, surface):
         # Rect variables
         rect_left = pygame.Rect(0, 0, 20, 720)
         rect_top = pygame.Rect(0, 0, 1080, 20)
         rect_right = pygame.Rect(1060, 0, 20, 720)
 
         # Draw rects
-        pygame.draw.rect(self.surface, self.frame_color, rect_left)
-        pygame.draw.rect(self.surface, self.frame_color, rect_top)
-        pygame.draw.rect(self.surface, self.frame_color, rect_right)        
+        pygame.draw.rect(surface, self.frame_color, rect_left)
+        pygame.draw.rect(surface, self.frame_color, rect_top)
+        pygame.draw.rect(surface, self.frame_color, rect_right)        
 
     # Method for removing a brick
     def remove_brick(self, brick_to_remove):

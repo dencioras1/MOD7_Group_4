@@ -42,8 +42,8 @@ class Ball:
         self.collider = pygame.Rect(self.x - self.radius, self.y - self.radius, self.radius * 2, self.radius * 2)
 
     # Method for drawing the ball
-    def draw_ball(self, screen):
-        pygame.draw.circle(screen, self.colour, [self.x, self.y], self.radius)
+    def draw_ball(self, surface):
+        pygame.draw.circle(surface, self.colour, [self.x, self.y], self.radius)
 
     # Method for handling collisions with the paddles
     def collision_paddle(self, paddles):

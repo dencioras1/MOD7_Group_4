@@ -33,8 +33,8 @@ class Paddle:
         self.collider = pygame.Rect(self.x, self.y, self.width, self.height)
 
     # Method for drawing paddle
-    def draw_paddle(self, screen):
-        pygame.draw.rect(screen, self.colour, self.collider)
+    def draw_paddle(self, surface):
+        pygame.draw.rect(surface, self.colour, self.collider)
 
     # Method for handling movement of the paddle
     def move_paddle(self, pressed_keys):

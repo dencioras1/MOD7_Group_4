@@ -31,9 +31,9 @@ class Brick:
             print("Invalid brick color variable! Make sure it is a triple (r, g, b)!")
 
     # Method for drawing the brick
-    def draw_brick(self, screen):
+    def draw_brick(self, surface):
         rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        pygame.draw.rect(screen, self.color, rect)
+        pygame.draw.rect(surface, self.color, rect)
 
     # Getter for the width of the brick
     def get_width(self):
