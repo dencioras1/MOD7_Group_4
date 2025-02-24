@@ -136,8 +136,9 @@ class Ball:
             pass
 
         # Multiply speed by accelaration constant (ball speed increases over time)
-        self.speed *= self.accelaration
-        self.speed *= self.accelaration
+        if (self.speed <= 25):
+            self.speed *= self.accelaration
+            self.speed *= self.accelaration
 
         # Update ball location
         self.x += self.dx * self.speed
