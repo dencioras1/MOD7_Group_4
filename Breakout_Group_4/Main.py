@@ -44,7 +44,7 @@ def main():
     pygame.font.init()
     FONT = pygame.font.SysFont("consolas", 24)
     
-    def game_logic(score):
+    def game_logic(score, BALLS):
         # Gets keys that are pressed
         keys = pygame.key.get_pressed()
         
@@ -126,7 +126,7 @@ def main():
         # Check if the game window is closed
         WINDOW.check_exit_window()
         
-        score = game_logic(score)
+        score = game_logic(score, BALLS)
 
         draw_everything(score)
 
