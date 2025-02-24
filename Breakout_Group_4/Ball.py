@@ -50,7 +50,7 @@ class Ball:
         self.update_collider()
 
         # Get paddle colliders
-        paddle_colliders = map(Paddle.get_colliders(), paddles)
+        paddle_colliders = map(Paddle.get_collider, paddles)
 
         # check which paddles have been collided with
         collided = self.collider.collidelist(list(paddle_colliders))
@@ -95,7 +95,7 @@ class Ball:
         self.update_collider()        
 
         for brick in bricks:
-            brick_collider = brick.get_colliders()
+            brick_collider = brick.get_collider()
             # If ball collides with a brick...
             if self.collider.colliderect(brick_collider):
                 # Calculate overlap
