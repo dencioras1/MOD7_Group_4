@@ -62,8 +62,8 @@ def main():
 
         WINDOW.fill_background()
 
-        BOARD.render_frame()
-        BOARD.render_bricks()
+        BOARD.draw_frame()
+        BOARD.draw_bricks()
 
         for paddle in PADDLES:
             paddle.move_paddle(keys)

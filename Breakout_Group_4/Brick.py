@@ -10,6 +10,7 @@ class Brick:
     height = 0
     collider = None
 
+    # Constructor
     def __init__(self, x, y, rgb):
         # Location
         self.x = x
