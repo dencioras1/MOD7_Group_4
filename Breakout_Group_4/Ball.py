@@ -21,6 +21,7 @@ class Ball:
         self.x_loc = x_loc
         self.y_loc = y_loc
         self.speed = speed
+        self.acc = 1.0001
 
         # Variables dealing with direction
         self.dx = random.uniform(-1, 1)
@@ -124,9 +125,9 @@ class Ball:
             # Lose situation
             pass
 
-        # possibility for accelleration to make it more difficult!
-        # self.dx *= self.acc
-        # self.dy *= self.acc
+        # possibility for acceleration to make it more difficult!
+        self.speed *= self.acc
+        self.speed *= self.acc
 
         self.x_loc += self.dx * self.speed
         self.y_loc += self.dy * self.speed
