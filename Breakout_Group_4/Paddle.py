@@ -21,7 +21,7 @@ class Paddle:
     def update_paddle(self, pressed_keys):
         if pressed_keys[self.keys[0]] and self.x_loc > 20: ##left movement
             self.x_loc -= self.dx
-        if pressed_keys[self.keys[1]] and self.x_loc < 980: ##right movement
+        if pressed_keys[self.keys[1]] and self.x_loc < 1060 - self.width: ##right movement
             self.x_loc += self.dx
 
         self.col_rect = pygame.Rect(self.x_loc, self.y_loc, self.width, self.height)

@@ -10,7 +10,6 @@ Denas:
 2. Player 1 (bottom) vs Player 2 (top) each one with their own ball     
 3. Ball speeds up over time                                             (BEFORE TMRW)
 4. Extend ball class to be connected to a player
-5. Have three balls                                                     (BEFORE TMRW)
 
 Both:                                                                   (BEFORE TMRW)
 1. Comment code                                                         

@@ -6,18 +6,22 @@ from Window import Window
 
 def main():
 
-    BALL_SPEED = 2
+    BALL_SPEED = 1
 
     FRAMERATE = 120
     BACKGROUND = (0, 0, 0)
     WINDOW_WIDTH = 1080
     WINDOW_HEIGHT = 720
     SIZE = (WINDOW_WIDTH, WINDOW_HEIGHT)
+    RED = (247, 74, 74)
+    BLUE = (74, 129, 247)
     WHITE = (255, 255, 255)
-    PINK = (247, 202, 201)
-    PADDLES = [Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], WHITE),
-               Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], PINK)]
-    BALL = Ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE)
+    
+    PADDLES = [Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], RED),
+               Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], BLUE)]
+    BALLS = [Ball(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE),
+             Ball(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE),
+             Ball(WINDOW_WIDTH / 3 * 2, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE)]
 
     # Code for game window settings
     pygame.init()
@@ -59,14 +63,28 @@ def main():
             paddle.update_paddle(keys)
             paddle.draw_paddle(SCREEN)
 
-        BALL.collision_paddle(PADDLES)
+        BALLS[0].collision_paddle(PADDLES)
+        BALLS[1].collision_paddle(PADDLES)
+        BALLS[2].collision_paddle(PADDLES)
 
-        hit_brick = BALL.collision_bricks(BOARD.get_bricks())
-        if hit_brick is not None:
-            BOARD.remove_brick(hit_brick)
+        hit_brick_1 = BALLS[0].collision_bricks(BOARD.get_bricks())
+        hit_brick_2 = BALLS[1].collision_bricks(BOARD.get_bricks())
+        hit_brick_3 = BALLS[2].collision_bricks(BOARD.get_bricks())
 
-        BALL.update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
-        BALL.draw_ball(SCREEN)
+        if hit_brick_1 is not None:
+            BOARD.remove_brick(hit_brick_1)
+        if hit_brick_2 is not None:
+            BOARD.remove_brick(hit_brick_2)
+        if hit_brick_3 is not None:
+            BOARD.remove_brick(hit_brick_3)
+
+        BALLS[0].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALLS[1].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+        BALLS[2].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
+
+        BALLS[0].draw_ball(SCREEN)
+        BALLS[1].draw_ball(SCREEN)
+        BALLS[2].draw_ball(SCREEN)
         
         WINDOW.update_canvas()
 
