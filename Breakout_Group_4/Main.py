@@ -8,6 +8,8 @@ def main():
 
     BALL_SPEED = 1
 
+    score = 0
+
     FRAMERATE = 120
     BACKGROUND = (0, 0, 0)
     WINDOW_WIDTH = 1080
@@ -16,7 +18,7 @@ def main():
     RED = (247, 74, 74)
     BLUE = (74, 129, 247)
     WHITE = (255, 255, 255)
-    
+
     PADDLES = [Paddle(150, 600, 5, [pygame.K_LEFT, pygame.K_RIGHT], RED),
                Paddle(850, 600, 5, [pygame.K_a, pygame.K_d], BLUE)]
     BALLS = [Ball(WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2, 10, BALL_SPEED, WHITE),
@@ -35,6 +37,10 @@ def main():
     WINDOW.initialize_window()
 
     BOARD = Board(WINDOW.get_surface())
+
+    # Initialize font for displaying the score / speed
+    pygame.font.init()
+    FONT = pygame.font.SysFont("consolas", 24)
 
     # Main loop for the Breakout game
 
@@ -73,10 +79,13 @@ def main():
 
         if hit_brick_1 is not None:
             BOARD.remove_brick(hit_brick_1)
+            score += 1
         if hit_brick_2 is not None:
             BOARD.remove_brick(hit_brick_2)
+            score += 1
         if hit_brick_3 is not None:
             BOARD.remove_brick(hit_brick_3)
+            score += 1
 
         BALLS[0].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
         BALLS[1].update_ball(WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -86,6 +95,11 @@ def main():
         BALLS[1].draw_ball(SCREEN)
         BALLS[2].draw_ball(SCREEN)
         
+        score_surface = FONT.render("Bricks broken: " + str(score), True, (255, 255, 255))
+        speed_surface = FONT.render("Current ball speed: " + str(BALLS[0].get_speed()), True, (255, 255, 255))
+        SCREEN.blit(score_surface, (30, 30))
+        SCREEN.blit(speed_surface, (30, 50))
+
         WINDOW.update_canvas()
 
 if __name__ == "__main__":

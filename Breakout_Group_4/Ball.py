@@ -143,3 +143,6 @@ class Ball:
         length = math.sqrt(self.dx**2 + self.dy**2)
         self.dx /= length
         self.dy /= length
+
+    def get_speed(self):
+        return self.speed
