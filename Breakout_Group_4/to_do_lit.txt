@@ -1,8 +1,0 @@
-Kaya:
-1. Aesthetics (in italic)
-2. Press something to start the game, or maybe timer                    (BEFORE TMRW)
-3. Make sure game stops after balls are gone							(BEFORE TMRW)
-4. New set of bricks when all of them are gone.							(BEFORE TMRW)
-
-
-
