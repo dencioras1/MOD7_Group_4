@@ -143,9 +143,10 @@ class Ball:
 
         # Multiply speed by accelaration constant (ball speed increases over time)
         if (self.speed <= 25) and self.state == 1:
+            print('Accelarating...')
             self.speed *= self.accelaration
             self.speed *= self.accelaration
-
+        print('Outside of if statement...')
         # Update ball location
         self.x += self.dx * self.speed
         self.y += self.dy * self.speed
