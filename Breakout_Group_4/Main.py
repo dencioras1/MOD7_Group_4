@@ -3,7 +3,7 @@ from Paddle import Paddle
 from Ball import Ball
 from Board import Board
 from Window import Window
-
+import math
 
 def make_balls(window_width, window_height, ball_speed, colour):
     BALLS = [Ball(window_width / 3, window_height / 2, 10, ball_speed, colour),
@@ -88,7 +88,7 @@ def main():
         PADDLES[1].draw_paddle(WINDOW.get_surface())
 
         score_surface = FONT.render("Bricks broken: " + str(score), True, (255, 255, 255))
-        speed_surface = FONT.render("Current ball speed: " + str(BALLS[0].get_speed()), True, (255, 255, 255))
+        speed_surface = FONT.render("Current ball speed: " + str(math.ceil(BALLS[0].get_speed() * 100) / 100), True, (255, 255, 255))
         WINDOW.get_surface().blit(score_surface, (30, 30))
         WINDOW.get_surface().blit(speed_surface, (30, 50))
 
