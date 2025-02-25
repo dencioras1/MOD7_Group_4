@@ -18,6 +18,7 @@ class Ball:
     collider = None
     state = 0
 
+    
     # Constructor
     def __init__(self, x, y, radius, speed, colour):
         # Location 
