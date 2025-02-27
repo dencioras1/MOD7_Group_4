@@ -5,6 +5,7 @@ from Board import Board
 from Window import Window
 import math
 
+
 def make_balls(window_width, window_height, ball_speed, colour):
     BALLS = [Ball(window_width / 3, window_height / 2, 10, ball_speed, colour),
              Ball(window_width / 2, window_height / 2, 10, ball_speed, colour),
@@ -40,6 +41,7 @@ def main():
 
     # Board variable
     BOARD = Board()
+
 
     # Initialize font for displaying the score / speed
     pygame.font.init()
@@ -131,6 +133,7 @@ def main():
         score = score_logic(score)
 
         draw_everything(score)
+
 
 if __name__ == "__main__":
     main()

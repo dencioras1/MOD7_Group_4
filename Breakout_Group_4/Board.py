@@ -46,7 +46,12 @@ class Board:
         # Draw rects
         pygame.draw.rect(surface, self.frame_color, rect_left)
         pygame.draw.rect(surface, self.frame_color, rect_top)
-        pygame.draw.rect(surface, self.frame_color, rect_right)        
+        pygame.draw.rect(surface, self.frame_color, rect_right)
+        pygame.draw.rect(surface, (255,255,255), pygame.Rect(5, 5, 400, 4))
+        pygame.draw.rect(surface, (255,255,255), pygame.Rect(5, 5, 4, 40))
+        pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(670, 5, 400, 4))
+        pygame.draw.rect(surface, (255, 255, 255), pygame.Rect(1070, 5, 4, 40))
+
 
     # Method for removing a brick
     def remove_brick(self, brick_to_remove):

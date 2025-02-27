@@ -3,6 +3,8 @@ from Paddle import Paddle
 from Ball import Ball
 from Board import Board
 from Window import Window
+from support_functions import *
+
 import math
 
 def make_balls(window_width, window_height, ball_speed, colour):
@@ -30,6 +32,12 @@ def check_balls(BALLS_BLUE, BALLS_RED, window_width, window_height, ball_speed, 
 def main():
     # Initialize pygame
     pygame.init()
+    rows = 27
+    columns = 19
+
+    TSP = TSPDecoder(rows=rows, columns=columns)
+    grid = np.zeros((TSP.rows, TSP.columns))
+
 
     # Variables that should not be adjusted
     WINDOW_WIDTH = 1080
@@ -56,13 +64,52 @@ def main():
     # Board variable
     BOARD = Board()
 
+    # TSP variable
+    # TSP = TSP()
+
     # Initialize font for displaying the score / speed
     pygame.font.init()
     FONT = pygame.font.SysFont("consolas", 24)
     
-    def game_logic(scores):
+    def game_logic(scores, gl_grid):
         # Gets keys that are pressed
         keys = pygame.key.get_pressed()
+
+        #read grid
+        if TSP.frame_available:
+            gl_grid = TSP.readFrame()
+        # print(pygame.K_LEFT) 1073741904
+
+        for r in range(rows):
+            for c in range(columns):
+                # Get the value of the grid
+                # first paddle red, second blue
+                value = gl_grid[r][c]
+                if value > 70:
+                    if r > 14:
+                        if c > 9:
+                            # blue paddle to left
+                            PADDLES[1].move_paddle(1)
+                            print("Left 2")
+                        else:
+                            # red paddle to right
+                            PADDLES[0].move_paddle(-1)
+                            print("Right 1")
+
+                    elif r < 14:
+                        if c > 9:
+                            # blue paddle to right
+                            PADDLES[1].move_paddle(-1)
+                            print("Right 2")
+                        else:
+                            # red paddle to left
+                            PADDLES[0].move_paddle(1)
+                            print("Left 1")
+                    else:
+                        print("no input")
+
+
+
 
         # Move paddles based on the keys being pressed
         for paddle in PADDLES:
@@ -155,7 +202,8 @@ def main():
         # Check if the game window is closed
         WINDOW.check_exit_window()
 
-        scores = game_logic(scores)
+
+        scores = game_logic(scores, grid)
         
         check_balls(BALLS_BLUE, BALLS_RED, WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, PADDLE_BLUE, PADDLE_RED)
         

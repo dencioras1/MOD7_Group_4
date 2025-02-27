@@ -39,12 +39,19 @@ class Paddle:
 
     # Method for handling movement of the paddle
     def move_paddle(self, pressed_keys):
-        # Left
-        if pressed_keys[self.keys[0]] and self.x > 20:
+        if pressed_keys == 1 and self.x > 20:
+            # Left
             self.x -= self.dx
-        # Right
-        if pressed_keys[self.keys[1]] and self.x < 1060 - self.width:
+        elif pressed_keys == -1 and self.x < 1060 - self.width:
+            # Right
             self.x += self.dx
+        # else:
+        #     # Left
+        #     if pressed_keys[self.keys[0]] and self.x > 20:
+        #         self.x -= self.dx
+        #     # Right
+        #     if pressed_keys[self.keys[1]] and self.x < 1060 - self.width:
+        #         self.x += self.dx
 
         # Update collider location
         self.collider = pygame.Rect(self.x, self.y, self.width, self.height)
