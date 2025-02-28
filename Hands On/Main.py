@@ -20,12 +20,13 @@ def check_balls(BALLS_BLUE, BALLS_RED, window_width, window_height, ball_speed, 
             i += 1
     if i == 3:
         BALLS_BLUE.clear()
+        len(BALLS_BLUE)
         BALLS_BLUE = make_balls(window_width, window_height, ball_speed, blue_color)
-    i = 0
+    j = 0
     for balls_red in BALLS_RED:
         if balls_red.get_state() == 2:
-            i += 1
-    if i == 3:
+            j += 1
+    if j == 3:
         BALLS_RED.clear()
         BALLS_RED = make_balls(window_width, window_height, ball_speed, red_color)
     
@@ -176,17 +177,18 @@ def main():
         BALLS_BLUE[0].draw_ball(WINDOW.get_surface())
         BALLS_BLUE[1].draw_ball(WINDOW.get_surface())
         BALLS_BLUE[2].draw_ball(WINDOW.get_surface())
+
         BALLS_RED[0].draw_ball(WINDOW.get_surface())
         BALLS_RED[1].draw_ball(WINDOW.get_surface())
         BALLS_RED[2].draw_ball(WINDOW.get_surface())
-        
+
         PADDLES[0].draw_paddle(WINDOW.get_surface())
         PADDLES[1].draw_paddle(WINDOW.get_surface())
 
         score_blue_surface = FONT.render("Blue score: " + str(scores[0]), True, (255, 255, 255))
         score_red_surface = FONT.render("Red score: " + str(scores[1]), True, (255, 255, 255))
         speed_surface = FONT.render("Current ball speed: " + str(math.ceil(BALLS_RED[0].get_speed() * 100) / 100), True, (255, 255, 255))
-        
+
         WINDOW.get_surface().blit(score_blue_surface, (30, 30))
         WINDOW.get_surface().blit(score_red_surface, (850, 30))
         WINDOW.get_surface().blit(speed_surface, (WINDOW_WIDTH / 2 - 175, 30))
@@ -206,8 +208,10 @@ def main():
         scores = game_logic(scores, grid)
         
         check_balls(BALLS_BLUE, BALLS_RED, WINDOW_WIDTH, WINDOW_HEIGHT, BALL_SPEED, PADDLE_BLUE, PADDLE_RED)
-        
-        draw_everything(scores)
+
+        if len(BALLS_BLUE) != 0 and len(BALLS_RED) != 0:
+            draw_everything(scores)
+
 
 if __name__ == "__main__":
     main()
